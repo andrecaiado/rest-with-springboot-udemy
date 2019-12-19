@@ -1,4 +1,4 @@
-package pt.com.andrecaiado.restwithspringbootudemy;
+package pt.com.andrecaiado;
 
 public class Greeting {
 

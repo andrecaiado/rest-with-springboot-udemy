@@ -1,4 +1,4 @@
-package pt.com.andrecaiado.restwithspringbootudemy;
+package pt.com.andrecaiado;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

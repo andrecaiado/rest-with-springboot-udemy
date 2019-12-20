@@ -1,6 +1,5 @@
 package pt.com.andrecaiado.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import pt.com.andrecaiado.converters.NumberConverter;
-import pt.com.andrecaiado.exceptions.UnsupportedMathOperationException;
-import pt.com.andrecaiado.math.SimpleMath;
 import pt.com.andrecaiado.model.Person;
 import pt.com.andrecaiado.services.PersonServices;
 
@@ -27,7 +23,7 @@ public class PersonController {
 	@RequestMapping(value="/{id}", 
 			method=RequestMethod.GET,
 			produces=MediaType.APPLICATION_JSON_VALUE)
-	public Person findPersonById(@PathVariable("id") String id) {
+	public Person findPersonById(@PathVariable("id") Long id) {
 		return personServices.findById(id);
 	}
 	
@@ -55,7 +51,7 @@ public class PersonController {
 	@RequestMapping(value="/{id}",
 			method=RequestMethod.DELETE,
 			consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void delete(@PathVariable("id") String id) {
+	public void delete(@PathVariable("id") Long id) {
 		personServices.delete(id);
 	}
 	

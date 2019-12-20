@@ -2,56 +2,48 @@ package pt.com.andrecaiado.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pt.com.andrecaiado.exceptions.ResourceNotFoundException;
 import pt.com.andrecaiado.model.Person;
+import pt.com.andrecaiado.repository.PersonRepository;
 
 @Service
 public class PersonServices {
+	
+	@Autowired
+	PersonRepository repository;
 
-	private final AtomicLong counter = new AtomicLong();
-	
-	public Person findById(String id) {
-		Person person = new Person();
-		person.setId(counter.incrementAndGet());
-		person.setFirstName("André");
-		person.setLastName("Caiado");
-		person.setGender("Male");
-		person.setAddress("Rua Mestre António Nelas, Lote 191-A, 3º esq., 3510-596, Viseu");
-		return person;
-	}
-	
-	public List<Person> findAll() {
-		List<Person> persons = new ArrayList<Person>();
-		for (int i = 0; i < 8; i++) {
-			Person person = mockPerson(i);
-			persons.add(person);
-		}
-		return persons;
-	}
 
-	private Person mockPerson(int i) {
-		Person person = new Person();
-		person.setId(counter.incrementAndGet());
-		person.setFirstName("Person name " + i);
-		person.setLastName("Last name " + i);
-		person.setGender("Male");
-		person.setAddress("Viseu " + i);
-		return person;
-	}
-	
 	public Person create(Person person) {
-		person.setId(counter.incrementAndGet());
-		return person;
+		return repository.save(person);
+	}
+	
+
+	public List<Person> findAll() {
+		return repository.findAll();
+	}
+
+	public Person findById(Long id) {
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this Id"));
 	}
 	
 	public Person update(Person person) {
-		return person;
+		Person entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this Id"));
+		entity.setFirstName(person.getFirstName());
+		entity.setLastName(person.getLastName());
+		entity.setGender(person.getGender());
+		entity.setAddress(person.getAddress());
+		return repository.save(entity);
 	}
 	
-	public void delete(String id) {
+	public void delete(Long id) {
+		Person entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this Id"));
+		repository.delete(entity);
 	}
 	
 }

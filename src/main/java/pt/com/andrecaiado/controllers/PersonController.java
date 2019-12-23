@@ -24,22 +24,24 @@ public class PersonController {
 	@Autowired
 	private PersonServices personServices;
 	
-	@GetMapping("/{id}")
+	@GetMapping(value = "/{id}", produces = {"application/json","application/xml"})
 	public PersonVO findPersonById(@PathVariable("id") Long id) {
 		return personServices.findById(id);
 	}
 	
-	@GetMapping
+	@GetMapping(produces = {"application/json","application/xml"})
 	public List<PersonVO> findAll() {
 		return personServices.findAll();
 	}
 	
-	@PostMapping()
+	@PostMapping(produces = {"application/json","application/xml"},
+			consumes = {"application/json","application/xml"})
 	public PersonVO create(@RequestBody PersonVO person) {
 		return personServices.create(person);
 	}
 	
-	@PutMapping()
+	@PutMapping(produces = {"application/json","application/xml"},
+			consumes = {"application/json","application/xml"})
 	public PersonVO update(@RequestBody PersonVO person) {
 		return personServices.update(person);
 	}

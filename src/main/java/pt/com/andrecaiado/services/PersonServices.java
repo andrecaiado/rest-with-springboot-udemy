@@ -1,9 +1,6 @@
 package pt.com.andrecaiado.services;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +34,7 @@ public class PersonServices {
 	}
 	
 	public PersonVO update(PersonVO person) {
-		var entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this Id"));
+		var entity = repository.findById(person.getKey()).orElseThrow(() -> new ResourceNotFoundException("No records found for this Id"));
 		
 		entity.setFirstName(person.getFirstName());
 		entity.setLastName(person.getLastName());

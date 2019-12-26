@@ -1,5 +1,8 @@
 package pt.com.andrecaiado.controllers;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import pt.com.andrecaiado.data.model.Person;
 import pt.com.andrecaiado.data.vo.PersonVO;
 import pt.com.andrecaiado.services.PersonServices;
 
@@ -25,8 +27,10 @@ public class PersonController {
 	private PersonServices personServices;
 	
 	@GetMapping(value = "/{id}", produces = {"application/json","application/xml","application/x-yaml"})
-	public PersonVO findPersonById(@PathVariable("id") Long id) {
-		return personServices.findById(id);
+	public PersonVO findById(@PathVariable("id") Long id) {
+		PersonVO personVO = personServices.findById(id);
+		personVO.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+		return personVO;
 	}
 	
 	@GetMapping(produces = {"application/json","application/xml","application/x-yaml"})

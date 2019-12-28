@@ -20,7 +20,7 @@ import pt.com.andrecaiado.data.vo.PersonVO;
 import pt.com.andrecaiado.services.PersonServices;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person")
 public class PersonController {
 	
 	@Autowired

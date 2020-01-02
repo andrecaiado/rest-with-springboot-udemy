@@ -1,7 +1,0 @@
-AWS_ACCESS_KEY_ID = AKIAYIUWY7FEBKHORUWW
-AWS_ACCESS_SECRET_KEY_ID = qwAbQjTDzwP4vcJSVoJTA70yIVhdi2OgYygdr154
-
-AWS_DEFAULT_REGION = eu-west-2
-IMAGE_REPO_URL = 568325634376.dkr.ecr.eu-west-2.amazonaws.com/rest-with-spring-boot-udemy
-CLUSTER_NAME = RestWithSpringBootUdemy
-SERVICE_NAME = RestWithSpringBootUdemy

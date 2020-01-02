@@ -1,0 +1,51 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:latest
+    container_name: udemy-mysql-db-prod
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'udemy-mysql-db'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'andre'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: '12345'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: '12345'
+      # Timezone
+      TZ: Europe/Lisbon 
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3308:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - udemy-mysql-db:/var/lib/mysql
+    networks: 
+      - udemy-networks
+  rest-with-springboot-udemy:
+    image: rest-with-springboot-udemy
+    restart: always
+    build: .
+    working_dir: /RestWithSpringBootUdemy
+    environment:
+      TZ: Europe/Lisbon
+      SPRING_BOOT_ENVIRONMENT: Production
+    ports:
+      - "8080:8080"
+    command: mvn spring-boot:run
+    links:
+      - db
+    depends_on:
+      - db
+    networks: 
+      - udemy-networks
+# Names our volume
+volumes:
+  udemy-mysql-db:
+# Networks
+networks: 
+  udemy-networks:
+    driver: bridge

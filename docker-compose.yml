@@ -26,7 +26,7 @@ services:
     networks: 
       - udemy-networks
   rest-with-springboot-udemy:
-    image: rest-with-springboot-udemy
+    image: rest-with-spring-boot-udemy
     restart: always
     build: .
     working_dir: /RestWithSpringBootUdemy
